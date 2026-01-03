@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minecraft Web</title>
+
+<style>
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: black;
+}
+
+/* Loading Screen */
+#loadingScreen {
+    position: fixed;
+    inset: 0;
+    background: #0a0a0a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: white;
+    font-family: Arial, sans-serif;
+    z-index: 9999;
+}
+
+.loader {
+    width: 64px;
+    height: 64px;
+    border: 6px solid #444;
+    border-top: 6px solid #00ff00;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Game Frame */
+iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Loading Screen -->
+<div id="loadingScreen">
+    <div class="loader"></div>
+    <h2>Loading minecraft.wasm...</h2>
+    <p>Please wait</p>
+</div>
+
+<!-- Game -->
+<iframe 
+    id="gameFrame"
+    src="https://eaglercraft.dev/clients/Release%201.12.2%20WASM/index.html"
+    allowfullscreen>
+</iframe>
+
+<script>
+const iframe = document.getElementById("gameFrame");
+const loading = document.getElementById("loadingScreen");
+
+// Hide loading screen when iframe loads
+iframe.addEventListener("load", () => {
+    loading.style.display = "none";
+});
+
+// Optional: force fullscreen on click
+document.addEventListener("click", () => {
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+    }
+});
+</script>
+
+</body>
+</html>
